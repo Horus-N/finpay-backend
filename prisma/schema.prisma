@@ -1,0 +1,22 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+// Thiết kế bảng User (Người dùng) cho hệ thống
+model User {
+  id        String   @id @default(uuid()) // Id tự động sinh dạng chuỗi UUID mã hóa
+  email     String   @unique              // Email là duy nhất, không được trùng
+  password  String                        // Mật khẩu đã mã hóa
+  fullName  String
+  createdAt DateTime @default(now())      // Tự động lưu ngày giờ tạo tài khoản
+  updatedAt DateTime @updatedAt           // Tự động cập nhật ngày giờ khi sửa thông tin
+}
