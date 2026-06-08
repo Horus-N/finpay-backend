@@ -11,12 +11,18 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+enum ROLE {
+  ADMIN
+  USER
+}
 // Thiết kế bảng User (Người dùng) cho hệ thống
 model User {
   id        String   @id @default(uuid()) // Id tự động sinh dạng chuỗi UUID mã hóa
   email     String   @unique              // Email là duy nhất, không được trùng
   password  String                        // Mật khẩu đã mã hóa
   fullName  String
+  refreshToken String?
+  role  ROLE @default(USER)
   createdAt DateTime @default(now())      // Tự động lưu ngày giờ tạo tài khoản
   updatedAt DateTime @updatedAt           // Tự động cập nhật ngày giờ khi sửa thông tin
 }
